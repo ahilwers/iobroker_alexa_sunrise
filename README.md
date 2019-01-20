@@ -1,4 +1,4 @@
-# Sunrise alarm with Hue and Alexa
+# Sunrise alarm with Philips Hue and Amazon Alexa
 This script starts a sunrise with your Hue light bulbs 30 mintes before the alarm of your Alexa device triggers. So you can just say "Alexa, wake me up at 6 o'clock" and the sunrise will start at 5:30.
 
 # How does it work?
