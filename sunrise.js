@@ -11,8 +11,13 @@ schedule("*/5 * * * *", function () {
 });
 
 function collectAlarmTimesFromAlexa(deviceId) {
+    collectAlarmTimesOfCategoryFromAlexa(deviceId, 'Alarm');
+    collectAlarmTimesOfCategoryFromAlexa(deviceId, 'MusicAlarm');
+}
+
+function collectAlarmTimesOfCategoryFromAlexa(deviceId, category) {
     console.log("Collecting alarms from "+deviceId);
-    var alarmEntries = $('state[id='+deviceId+'.Alarm.*]');
+    var alarmEntries = $('state[id='+deviceId+'.'+category+'.*]');
 
     var lastAlarmId = '';
     var isEnabled = false;
