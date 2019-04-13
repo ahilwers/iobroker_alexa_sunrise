@@ -11,19 +11,20 @@ schedule("*/5 * * * *", function () {
 });
 
 function collectAlarmTimesFromAlexa(deviceId) {
-    collectAlarmTimesOfCategoryFromAlexa(deviceId, 'Alarm');
-    collectAlarmTimesOfCategoryFromAlexa(deviceId, 'MusicAlarm');
+    console.log("Collecting alarms from "+deviceId);
+    var currentAlarmTimes = [];
+    collectAlarmTimesOfCategoryFromAlexa(deviceId, 'Alarm', currentAlarmTimes);
+    collectAlarmTimesOfCategoryFromAlexa(deviceId, 'MusicAlarm', currentAlarmTimes);
+    // Synchronize the global alarm times with the current ones:
+    synchronizeAlarmLists(currentAlarmTimes, alarmTimes);
 }
 
-function collectAlarmTimesOfCategoryFromAlexa(deviceId, category) {
-    console.log("Collecting alarms from "+deviceId);
+function collectAlarmTimesOfCategoryFromAlexa(deviceId, category, currentAlarmTimes) {
     var alarmEntries = $('state[id='+deviceId+'.'+category+'.*]');
 
     var lastAlarmId = '';
     var isEnabled = false;
     var alarmTime = null;
-
-    var currentAlarmTimes = [];
     
     alarmEntries.each(function (id, i) {
         var alarmId = getId(id);
@@ -48,8 +49,6 @@ function collectAlarmTimesOfCategoryFromAlexa(deviceId, category) {
     });
     // The last entry was not processed, so we have to process it now:
     addAlarmTime(isEnabled, alarmTime, currentAlarmTimes);
-    // Synchronize the global alarm times with the current ones:
-    synchronizeAlarmLists(currentAlarmTimes, alarmTimes);
 }
 
 function getId(objectId) {
