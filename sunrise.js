@@ -132,7 +132,7 @@ function processAlarmTime(alarmTime, hueGroupId, durationInMinutes) {
     console.log('Sunrise starts at '+startTime);
     var currentTime = new Date();
     console.log('Current time is '+currentTime);
-    if (currentTime>=startTime) {
+    if ((currentTime>=startTime) && (currentTime<alarmTime)) {
         doSunrise(hueGroupId, durationInMinutes);
     }
 }
